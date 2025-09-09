@@ -1,33 +1,51 @@
 {
   "name": "tree-sitter-jdl",
-  "version": "1.0.0",
-  "description": "Tree-sitter parser for JHipster Domain Language (JDL)",
+  "version": "0.1.0",
+  "description": "Jdl grammar for tree-sitter",
+  "repository": "https://github.com/tree-sitter/tree-sitter-jdl",
+  "license": "MIT",
+  "author": {
+    "name": "Alessandro Bruno",
+    "email": "alessandro.brunoh@gmail.com"
+  },
   "main": "bindings/node",
+  "types": "bindings/node",
   "keywords": [
     "incremental",
     "parsing",
     "tree-sitter",
-    "jdl",
-    "jhipster"
+    "jdl"
   ],
-  "author": "",
-  "license": "MIT",
+  "files": [
+    "grammar.js",
+    "tree-sitter.json",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**",
+    "*.wasm"
+  ],
   "dependencies": {
-    "nan": "^2.17.0"
+    "node-addon-api": "^8.3.1",
+    "node-gyp-build": "^4.8.4"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.8"
+    "prebuildify": "^6.0.1",
+    "tree-sitter-cli": "^0.25.8"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.22.4"
+  },
+  "peerDependenciesMeta": {
+    "tree-sitter": {
+      "optional": true
+    }
   },
   "scripts": {
-    "build": "tree-sitter generate && node-gyp build",
-    "test": "tree-sitter test"
-  },
-  "tree-sitter": [
-    {
-      "scope": "source.jdl",
-      "file-types": [
-        "jdl"
-      ]
-    }
-  ]
+    "install": "node-gyp-build",
+    "prestart": "tree-sitter build --wasm",
+    "start": "tree-sitter playground",
+    "test": "node --test bindings/node/*_test.js"
+  }
 }
