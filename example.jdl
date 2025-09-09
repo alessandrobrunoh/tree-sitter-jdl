@@ -1,0 +1,37 @@
+// Bookstore domain model
+enum Language {
+  ENGLISH, FRENCH, SPANISH, GERMAN
+}
+
+enum BookStatus {
+  AVAILABLE, BORROWED, RESERVED
+}
+
+entity Author {
+  firstName String required min(2) max(50),
+  lastName String required min(2) max(50),
+  email String pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+  birthDate LocalDate
+}
+
+entity Book {
+  title String required min(1) max(200),
+  isbn String required min(10) max(13),
+  publishedDate LocalDate,
+  pages Integer min(1),
+  language Language,
+  status BookStatus required
+}
+
+entity Category {
+  name String required min(2) max(50),
+  description TextBlob
+}
+
+relationship OneToMany {
+  Author{books} to Book{author required}
+}
+
+relationship ManyToMany {
+  Book{categories} to Category{books}
+}
