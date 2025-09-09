@@ -1,24 +1,19 @@
-#include <node.h>
-#include <nan.h>
-#include "tree_sitter/parser.h"
+#include <napi.h>
 
-using namespace v8;
+typedef struct TSLanguage TSLanguage;
 
-extern "C" TSLanguage * tree_sitter_jdl();
+extern "C" TSLanguage *tree_sitter_jdl();
 
-namespace {
+// "tree-sitter", "language" hashed with BLAKE2
+const napi_type_tag LANGUAGE_TYPE_TAG = {
+    0x8AF2E5212AD58ABF, 0xD5006CAD83ABBA16
+};
 
-NAN_METHOD(GetLanguage) {
-  info.GetReturnValue().Set(
-    Nan::New<External>(tree_sitter_jdl())
-  );
+Napi::Object Init(Napi::Env env, Napi::Object exports) {
+    auto language = Napi::External<TSLanguage>::New(env, tree_sitter_jdl());
+    language.TypeTag(&LANGUAGE_TYPE_TAG);
+    exports["language"] = language;
+    return exports;
 }
 
-NAN_MODULE_INIT(Init) {
-  Nan::Set(target, Nan::New("getLanguage").ToLocalChecked(),
-           Nan::GetFunction(Nan::New<FunctionTemplate>(GetLanguage)).ToLocalChecked());
-}
-
-NODE_MODULE(tree_sitter_jdl_binding, Init)
-
-}  // namespace
+NODE_API_MODULE(tree_sitter_jdl_binding, Init)

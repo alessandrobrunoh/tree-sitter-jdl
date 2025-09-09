@@ -13,7 +13,7 @@ module.exports = grammar({
 
     // Comments are handled in extras
     line_comment: $ => token(seq('//', /.*/)),
-    
+
     block_comment: $ => token(seq(
       '/*',
       /[^*]*\*+([^/*][^*]*\*+)*/,
