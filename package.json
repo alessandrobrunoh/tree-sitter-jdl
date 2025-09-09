@@ -1,0 +1,12 @@
+{
+  "name": "tree-sitter-jdl",
+  "version": "1.0.0",
+  "description": "Support for .jdl files using Tree-Sitter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
