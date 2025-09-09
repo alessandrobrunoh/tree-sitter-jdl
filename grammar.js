@@ -70,7 +70,9 @@ module.exports = grammar({
     required_validation: $ => 'required',
     min_validation: $ => seq('min', '(', $.number, ')'),
     max_validation: $ => seq('max', '(', $.number, ')'),
-    pattern_validation: $ => seq('pattern', '(', $.string, ')'),
+    pattern_validation: $ => seq('pattern', '(', $.regex, ')'),
+
+    regex: $ => seq('/', /[^\/]+/, '/'),
 
     // Enum declaration
     enum_declaration: $ => seq(
