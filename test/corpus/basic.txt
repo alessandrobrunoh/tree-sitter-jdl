@@ -1,0 +1,113 @@
+================================================================================
+Basic Entity Declaration
+================================================================================
+
+entity Book
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (entity_declaration
+    (identifier)))
+
+================================================================================
+Entity with Fields
+================================================================================
+
+entity Book {
+  title String required,
+  isbn String min(10) max(13),
+  pages Integer
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (entity_declaration
+    (identifier)
+    (entity_body
+      (field_declaration
+        (identifier)
+        (field_type)
+        (validation
+          (required_validation)))
+      (field_declaration
+        (identifier)
+        (field_type)
+        (validation
+          (min_validation
+            (number)))
+        (validation
+          (max_validation
+            (number))))
+      (field_declaration
+        (identifier)
+        (field_type)))))
+
+================================================================================
+Simple Relationship
+================================================================================
+
+relationship OneToMany {
+  Author{books} to Book{author}
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (relationship_declaration
+    (relationship_type)
+    (relationship_mapping
+      (relationship_side
+        (identifier)
+        (identifier))
+      (relationship_side
+        (identifier)
+        (identifier)))))
+
+================================================================================
+Line Comments
+================================================================================
+
+// This is a comment
+entity Book
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line_comment)
+  (entity_declaration
+    (identifier)))
+
+================================================================================
+Block Comments
+================================================================================
+
+/* 
+ * Multi-line comment
+ */
+entity Book
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_comment)
+  (entity_declaration
+    (identifier)))
+
+================================================================================
+Enum Declaration
+================================================================================
+
+enum Language {
+  ENGLISH, FRENCH, SPANISH
+}
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (enum_declaration
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)))
